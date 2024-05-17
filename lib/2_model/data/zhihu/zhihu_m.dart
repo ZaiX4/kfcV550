@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:json_annotation/json_annotation.dart';
+
 //////////////////////////////////////////////////////////////////////////
 /*
 {
@@ -124,11 +126,13 @@ import 'dart:math';
  */
 //////////////////////////////////////////////////////////////////////////
 ///时间
+@JsonSerializable()
 class Date {
   String? year;
   String? month;
   String? day;
-  Date.fromJson(String? json) {
+  
+  Date.fromApi(String? json) {
     //解析json
     if (json != null) {
       year = json.substring(0, 4);
@@ -152,6 +156,7 @@ class Date {
 }
 //////////////////////////////////////////////////////////////////////////
 ///故事
+@JsonSerializable()
 class Story {
   String? image_hue;
   String? title;
@@ -161,7 +166,7 @@ class Story {
   String? type;
   String? id;
 
-  Story.fromJson(Map<String, dynamic>? json) {
+  Story.fromApi(Map<String, dynamic>? json) {
     //解析json
     if (json != null) {
       image_hue = json['image_hue'];
@@ -185,56 +190,59 @@ class Story {
 }
 //////////////////////////////////////////////////////////////////////////
 ///故事列表(list顶部)
+@JsonSerializable()
 class Stories {
   List<Story>? stories;
 
-  Stories.fromJson(Map<String, dynamic>? json) {
+  Stories.fromApi(Map<String, dynamic>? json) {
     //解析json
     if (json != null) {
       List list = json['stories'];
-      stories = list.map((e) => Story.fromJson(e)).toList();
+      stories = list.map((e) => Story.fromApi(e)).toList();
     }
     else {
       List list = [null,null,null,null,null];
-      stories = list.map((e) => Story.fromJson(e)).toList();
+      stories = list.map((e) => Story.fromApi(e)).toList();
     }
   }
 }
 //////////////////////////////////////////////////////////////////////////
 ///故事列表(list之外)
+@JsonSerializable()
 class TopStories {
   List<Story>? top_stories;
 
-  TopStories.fromJson(Map<String, dynamic>? json) {
+  TopStories.fromApi(Map<String, dynamic>? json) {
     //解析json
     if (json != null) {
       List list = json['top_stories'];
-      top_stories = list.map((e) => Story.fromJson(e)).toList();
+      top_stories = list.map((e) => Story.fromApi(e)).toList();
     }
     else {
       List list = [null,null,null,null,null];
-      top_stories = list.map((e) => Story.fromJson(e)).toList();
+      top_stories = list.map((e) => Story.fromApi(e)).toList();
     }
   }
 }
 //////////////////////////////////////////////////////////////////////////
 ///最新
+@JsonSerializable()
 class LatestNews {
   Date? date;
   Stories? stories;
   TopStories? top_stories;
 
-  LatestNews.fromJson(Map<String, dynamic>? json) {
+  LatestNews.fromApi(Map<String, dynamic>? json) {
     //解析json
     if (json != null) {
-      date = Date.fromJson(json['date']);
-      stories = Stories.fromJson(json['stories']);
-      top_stories = TopStories.fromJson(json['top_stories']);
+      date = Date.fromApi(json['date']);
+      stories = Stories.fromApi(json['stories']);
+      top_stories = TopStories.fromApi(json['top_stories']);
     }
     else {
-      date = Date.fromJson(null);
-      stories = Stories.fromJson(null);
-      top_stories = TopStories.fromJson(null);
+      date = Date.fromApi(null);
+      stories = Stories.fromApi(null);
+      top_stories = TopStories.fromApi(null);
     }
   }
 }

@@ -1,6 +1,6 @@
 //主页顶部
 import 'package:flutter/material.dart';
-import 'package:zhihuribao/view/fun/xiaomi13_mm.dart';
+import 'package:zhihuribao/5_view/fun/xiaomi13_mm.dart';
 
 //宽度70,高度10
 class TopUi extends StatelessWidget {

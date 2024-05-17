@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zhihuribao/view/fun/xiaomi13_mm.dart';
-import 'package:zhihuribao/view/usr/main/top_ui.dart';
+import 'package:zhihuribao/5_view/fun/xiaomi13_mm.dart';
+import 'package:zhihuribao/5_view/usr/main/top_ui.dart';
 
 //主页面
 class MainPage extends StatelessWidget {
