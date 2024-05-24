@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zhihuribao/3_service/data/zhihu/zhihu_s.dart';
@@ -14,6 +15,9 @@ class StoryC extends GetxController{
   var lastTime = Date.fromApi("20771010");
 
   var isLoad = false;
+
+  //数据排队
+  var lastWidgetTime = Date.fromApi("20771010");
 
   RxList<Widget> widgetList = <Widget>[Container()].obs;
   
@@ -31,13 +35,14 @@ class StoryC extends GetxController{
     LatestNews latestNews = await zhiHuS.getLatestNews();
    // widgetList.add(Text(latestNews.date.json));
 
-    var today = latestNews.date+1;
+    var today = latestNews.date+2;
     //widgetList.add(Text(today.json));
     if(lastTime<=today){
       return;
     }
     lastTime = today;
     getMore();
+    widgetList.removeAt(0);
   }
 
   //将story数据转换为组件列表
@@ -74,10 +79,17 @@ class StoryC extends GetxController{
   getMore() async{
     //widgetList.add(Text("moremoremore"));
     lastTime-=1;
-    var oneDayStory = await getOneDayStoryList(lastTime);
+    var c_lastTime = lastTime;
+    var oneDayStory = await getOneDayStoryList(c_lastTime);
     //widgetList.add(Text(oneDayStory.titleList.toString()));
-    storyMap[lastTime] = oneDayStory;
-    widgetList.addAll(getOneDayWidget(lastTime));
+    storyMap[c_lastTime] = oneDayStory;
+
+    //如果还没轮到这个线程,那么就等待100ms
+    while(lastWidgetTime-1!=c_lastTime && lastWidgetTime!=Date.fromApi("20771010")){
+      await Future.delayed(Duration(milliseconds: 100));
+    }
+    widgetList.addAll(getOneDayWidget(c_lastTime));
+    lastWidgetTime = c_lastTime;
     update();
   }
 }

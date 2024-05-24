@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zhihuribao/4_controller/usr/main_pg/top_picture_c.dart';
 import 'package:zhihuribao/4_controller/usr/main_pg/story_c.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
     //GetX引入
     Get.put(TopPictureC());
     Get.put(StoryC());
-    
+
+    // 设置首选刷新率为120Hz
     return const MainPage();
   }
 }
