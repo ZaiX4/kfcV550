@@ -1,6 +1,10 @@
 //主页顶部
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:zhihuribao/3_service/data/zhihu/zhihu_s.dart';
 import 'package:zhihuribao/5_view/fun/xiaomi13_mm.dart';
+
+import '../../../4_controller/usr/main_pg/story_c.dart';
 
 //宽度70,高度10
 class TopUi extends StatelessWidget {
@@ -24,6 +28,8 @@ class TopUi extends StatelessWidget {
   Widget build(BuildContext context) {
     double mm = getMM(context,1);
     double screenWidth = MediaQuery.of(context).size.width;
+
+    StoryC storyC = Get.find();
     /******************************
      * 左侧的日历
      ******************************/
@@ -89,6 +95,13 @@ class TopUi extends StatelessWidget {
       width: 11*mm,
       height: 10*mm,
       child: right,
+    );
+    right = InkWell(
+      child: right,
+      onTap: () => {
+        print("点击灰色按钮"),
+        storyC.widgetList.add(Text("223423412342")),
+      },
     );
     /******************************
      * all in one
